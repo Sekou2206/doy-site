@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DOY · Depend Of Yourself</title>
+<meta name="description" content="DOY, la plateforme mode inclusive. Révéler les talents sans critères. DOY Fashion Show, DOY Tour, DOY Formation.">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="icon" href="doy-logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="is-loading">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="doy" viewBox="0 0 64 100">
+      <g fill="none" stroke="currentColor" stroke-width="2.4">
+        <path d="M6 4h20l12 12v22L26 50H6z"/>
+        <path d="M12 10h12l8 8v18l-8 8H12z"/>
+        <path d="M24 30h34v34H24z"/>
+        <path d="M30 36h22v22H30z"/>
+        <path d="M34 64v16l-14 0v16h12"/>
+        <path d="M46 64v16h12v16H40"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="loader" aria-hidden="true">
+  <div class="loader__mark"><svg class="logo" viewBox="0 0 64 100"><use href="#doy"/></svg></div>
+  <div class="loader__words">
+    <span>Depend</span>
+    <span>Of</span>
+    <span>Yourself</span>
+  </div>
+  <div class="loader__num mono">000</div>
+  <div class="loader__bar"><i></i></div>
+</div>
+
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"><span class="cursor__label"></span></span></div>
+
+<header class="nav">
+  <a href="#top" class="nav__logo" aria-label="DOY accueil"><svg class="logo" viewBox="0 0 64 100"><use href="#doy"/></svg><span>DOY</span></a>
+  <nav class="nav__links" aria-label="Navigation principale">
+    <a href="#univers">Univers</a>
+    <a href="#defile">Défilé</a>
+    <a href="#film">Film</a>
+    <a href="#tour">Tour</a>
+    <a href="#archive">Archive</a>
+  </nav>
+  <a href="#casting" class="nav__cta"><span>Casting</span></a>
+  <button class="nav__burger" aria-label="Menu"><span></span><span></span></button>
+</header>
+
+<div class="menu" aria-hidden="true">
+  <nav>
+    <a href="#univers"><small>01</small><span>Univers</span></a>
+    <a href="#defile"><small>02</small><span>Défilé</span></a>
+    <a href="#film"><small>03</small><span>Film</span></a>
+    <a href="#tour"><small>04</small><span>Tour</span></a>
+    <a href="#archive"><small>05</small><span>Archive</span></a>
+    <a href="#casting"><small>06</small><span>Casting</span></a>
+  </nav>
+  <div class="menu__foot mono"><span>@doy.officiel</span><span>Lyon · Paris · Marseille · Genève</span></div>
+</div>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="hero__tri">
+      <div class="screen" data-clips="v-tunnel|v-robot" data-names="Le tunnel rouge|Pièce robotique" data-cursor="Voir">
+        <div class="screen__media"></div>
+        <span class="screen__cap mono"><b>01</b><em></em></span>
+      </div>
+      <div class="screen" data-clips="v-couture|v-darkcarpet" data-names="Couture|Dark carpet" data-cursor="Voir">
+        <div class="screen__media"></div>
+        <span class="screen__cap mono"><b>02</b><em></em></span>
+      </div>
+      <div class="screen" data-clips="v-performance|v-backstage" data-names="Performance|Coulisses" data-cursor="Voir">
+        <div class="screen__media"></div>
+        <span class="screen__cap mono"><b>03</b><em></em></span>
+      </div>
+    </div>
+
+    <div class="hero__solo">
+      <div class="screen screen--solo" data-clips="v-tunnel|v-couture|v-robot|v-darkcarpet|v-performance" data-names="Le tunnel rouge|Couture|Pièce robotique|Dark carpet|Performance">
+        <div class="screen__media"></div>
+      </div>
+      <div class="stories"></div>
+      <button class="stories__zone stories__zone--prev" aria-label="Vidéo précédente"></button>
+      <button class="stories__zone stories__zone--next" aria-label="Vidéo suivante"></button>
+      <span class="hero__solocap mono"><b>01</b><em></em></span>
+    </div>
+
+    <h1 class="hero__title" aria-label="Depend Of Yourself">
+      <span class="ht ht--1"><span><em>Depend</em></span></span>
+      <span class="ht ht--2"><span>Of Yourself</span></span>
+    </h1>
+
+    <div class="hero__meta hero__meta--l">
+      <span class="mono">La plateforme mode inclusive</span>
+    </div>
+    <div class="hero__meta hero__meta--r">
+      <span class="mono">Révéler les talents sans critères</span>
+    </div>
+    <a href="#manifeste" class="hero__down mono" aria-label="Défiler"><i></i>Défiler</a>
+  </section>
+
+  <section class="manifesto" id="manifeste">
+    <p class="kicker mono">Manifeste</p>
+    <p class="manifesto__text">
+      Ici, le podium n’a pas de mesure.
+      <span class="pill"><img src="noir-01.jpg" alt=""></span>
+      Pas de taille imposée, pas d’âge requis, pas de moule.
+      <span class="pill pill--wide"><video src="v-performance.mp4" muted loop playsinline preload="metadata"></video></span>
+      Seulement une présence, une allure,
+      <span class="pill"><img src="inclusive-01.jpg" alt=""></span>
+      une vérité. DOY révèle ceux que la mode n’attendait pas.
+      <span class="pill"><img src="backstage-01.jpg" alt=""></span>
+      <em>Depend Of Yourself.</em>
+    </p>
+    <div class="manifesto__sig mono"><span>Joseph Nyele</span><span>Fondateur · Direction artistique</span></div>
+  </section>
+
+  <section class="criteres" aria-label="Sans critères">
+    <p class="kicker mono">Ce que DOY ne demande pas</p>
+    <ul class="crit">
+      <li><span>Taille</span><i></i></li>
+      <li><span>Âge</span><i></i></li>
+      <li><span>Origine</span><i></i></li>
+      <li><span>Genre</span><i></i></li>
+      <li><span>Expérience</span><i></i></li>
+      <li><span>Mensurations</span><i></i></li>
+    </ul>
+    <p class="crit__end"><em>Seulement toi.</em></p>
+  </section>
+
+  <section class="univers" id="univers">
+    <header class="sec-head">
+      <p class="kicker mono">Trois univers</p>
+      <h2 class="sec-title">Une maison,<br><em>trois scènes</em></h2>
+    </header>
+    <div class="acc">
+      <article class="acc__item is-open" data-cursor="Voir">
+        <video src="v-couture.mp4" muted loop playsinline preload="metadata"></video>
+        <div class="acc__veil"></div>
+        <span class="acc__num mono">01</span>
+        <h3 class="acc__title">DOY<br><em>Fashion Show</em></h3>
+        <p class="acc__text">Des défilés pensés comme des mondes. Un thème, une scène inattendue, des créateurs émergents et des mannequins que personne n’avait encore regardés.</p>
+      </article>
+      <article class="acc__item" data-cursor="Voir">
+        <video src="v-casting.mp4" muted loop playsinline preload="metadata"></video>
+        <div class="acc__veil"></div>
+        <span class="acc__num mono">02</span>
+        <h3 class="acc__title">DOY<br><em>Tour</em></h3>
+        <p class="acc__text">Une tournée internationale de castings ouverte aux mannequins et modèles amateurs. Inscription gratuite, aucun critère physique.</p>
+      </article>
+      <article class="acc__item" data-cursor="Voir">
+        <video src="v-backstage.mp4" muted loop playsinline preload="metadata"></video>
+        <div class="acc__veil"></div>
+        <span class="acc__num mono">03</span>
+        <h3 class="acc__title">DOY<br><em>Formation</em></h3>
+        <p class="acc__text">Coaching privé, art du posing, bases du mannequinat. Apprendre auprès de celles et ceux qui défilent vraiment.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="defile" id="defile">
+    <div class="defile__pin">
+      <div class="defile__track">
+        <div class="defile__intro">
+          <p class="kicker mono">Défilé V · 27.04.25</p>
+          <h2 class="alien">Alien</h2>
+          <p class="defile__lead">Une invasion couture au Planétarium de Lyon. Dress code du public : full black, inspiration Mugler.</p>
+          <dl class="facts">
+            <div><dt class="mono">Lieu</dt><dd>Planétarium de Lyon</dd></div>
+            <div><dt class="mono">Thème</dt><dd>Alien</dd></div>
+            <div><dt class="mono">Public</dt><dd>Full black</dd></div>
+          </dl>
+        </div>
+        <figure class="look look--tall" data-cursor="Look"><img src="look-01.jpg" alt="Look runway Défilé V"><figcaption class="mono">Look 01</figcaption></figure>
+        <figure class="look look--low" data-cursor="Look"><img src="look-04.jpg" alt="Look runway Défilé V"><figcaption class="mono">Look 02</figcaption></figure>
+        <figure class="look look--high look--video"><video src="v-tunnel.mp4" muted loop playsinline preload="metadata"></video><figcaption class="mono">Le tunnel</figcaption></figure>
+        <figure class="look look--tall" data-cursor="Look"><img src="look-03.jpg" alt="Look runway Défilé V"><figcaption class="mono">Look 03</figcaption></figure>
+        <div class="defile__quote"><p><em>« Un étrange être venu de la planète DOY. »</em></p></div>
+        <figure class="look look--low" data-cursor="Look"><img src="runway-01.jpg" alt="Défilé V runway"><figcaption class="mono">Look 04</figcaption></figure>
+        <figure class="look look--high" data-cursor="Look"><img src="look-02.jpg" alt="Look runway Défilé V"><figcaption class="mono">Look 05</figcaption></figure>
+        <figure class="look look--tall look--video"><video src="v-robot.mp4" muted loop playsinline preload="metadata"></video><figcaption class="mono">Pièce robotique</figcaption></figure>
+        <figure class="look look--low" data-cursor="Détail"><img src="detail-01.jpg" alt="Détail look"><figcaption class="mono">Détail</figcaption></figure>
+        <figure class="look look--wide" data-cursor="Coulisses"><img src="backstage-02.jpg" alt="Coulisses Défilé V"><figcaption class="mono">Coulisses</figcaption></figure>
+        <figure class="look look--high" data-cursor="Look"><img src="runway-02.jpg" alt="Défilé V runway"><figcaption class="mono">Look 06</figcaption></figure>
+        <figure class="look look--tall look--light" data-cursor="Pièce"><img src="piece.jpg" alt="Création aistilca"><figcaption class="mono">Pièce aistilca</figcaption></figure>
+        <div class="defile__credits">
+          <p class="kicker mono">Créateurs</p>
+          <ul>
+            <li>eeecouture</li>
+            <li>aistilca</li>
+            <li>hueto</li>
+            <li>gloutizaki</li>
+            <li>louannecrenn</li>
+            <li>maisondonatelli</li>
+            <li>ostufff</li>
+            <li>adrianadasorte</li>
+          </ul>
+          <p class="mono defile__thanks">Avec le soutien des Galeries Lafayette<br>et de l’école Peyrefitte</p>
+        </div>
+      </div>
+      <div class="defile__progress"><span></span></div>
+    </div>
+  </section>
+
+  <section class="strip" aria-hidden="true">
+    <div class="strip__row">
+      <span>Fashion Show</span><i>♠</i><span><em>Tour</em></span><i>♠</i><span>Formation</span><i>♠</i><span><em>Casting</em></span><i>♠</i>
+      <span>Fashion Show</span><i>♠</i><span><em>Tour</em></span><i>♠</i><span>Formation</span><i>♠</i><span><em>Casting</em></span><i>♠</i>
+    </div>
+  </section>
+
+  <section class="film" id="film" data-cursor="Lecture">
+    <div class="film__frame">
+      <video class="film__bg" src="v-film.mp4" muted loop playsinline preload="metadata"></video>
+    </div>
+    <div class="film__content">
+      <p class="kicker mono">Court métrage</p>
+      <h2 class="film__title"><em>Une partie</em><br>de moi</h2>
+      <p class="film__by mono">Réalisation et direction artistique : Joseph Nyele</p>
+      <button class="film__play" aria-label="Lire le film avec le son"><b>▶</b><span>Lire le film</span></button>
+    </div>
+  </section>
+
+  <div class="modal" aria-hidden="true">
+    <button class="modal__close mono" aria-label="Fermer">Fermer</button>
+    <video class="modal__video" src="v-film.mp4" controls playsinline preload="none"></video>
+  </div>
+
+  <section class="tour" id="tour">
+    <header class="sec-head sec-head--split">
+      <div>
+        <p class="kicker mono">DOY Tour</p>
+        <h2 class="sec-title">Le casting<br><em>qui voyage</em></h2>
+      </div>
+      <p class="tour__lead">Mannequins et modèles amateurs, la tournée vient à vous. Plus de trois cents personnes se sont présentées au seul casting de Marseille.</p>
+    </header>
+    <ol class="cities">
+      <li class="city" data-img="noir-02.jpg"><span class="mono">01</span><b>Lyon</b><img class="city__thumb" src="noir-02.jpg" alt=""><span class="city__date mono">12.01.25</span></li>
+      <li class="city" data-img="carpet-02.jpg"><span class="mono">02</span><b>Paris</b><img class="city__thumb" src="carpet-02.jpg" alt=""><span class="city__date mono">18.01.25</span></li>
+      <li class="city" data-img="frontrow-01.jpg"><span class="mono">03</span><b>Marseille</b><img class="city__thumb" src="frontrow-01.jpg" alt=""><span class="city__date mono">25.01.25</span></li>
+      <li class="city" data-img="inclusive-02.jpg"><span class="mono">04</span><b>Genève</b><img class="city__thumb" src="inclusive-02.jpg" alt=""><span class="city__date mono">2025</span></li>
+    </ol>
+    <div class="city-float" aria-hidden="true"><img alt=""></div>
+  </section>
+
+  <section class="founder">
+    <figure class="founder__img"><img src="joseph.jpg" alt="Joseph Nyele, fondateur de DOY"></figure>
+    <div class="founder__text">
+      <p class="kicker mono">Le fondateur</p>
+      <blockquote class="founder__quote"><em>Mon identité.</em><br>Mes vérités.</blockquote>
+      <p class="founder__body">Joseph Nyele imagine DOY comme une porte ouverte. Directeur artistique et concepteur d’événements mode, il construit des scènes où chaque silhouette compte, du casting au dernier passage.</p>
+      <p class="mono founder__name">Joseph Nyele · Fondateur</p>
+    </div>
+  </section>
+
+  <section class="archive" id="archive">
+    <header class="archive__head">
+      <p class="kicker mono">Archive</p>
+      <h2 class="sec-title">Tout <em>DOY</em></h2>
+      <p class="archive__hint mono"><i></i>Glisser pour explorer</p>
+    </header>
+    <div class="archive__view" data-cursor="Glisser">
+      <div class="archive__plane"></div>
+    </div>
+  </section>
+
+  <section class="journal" id="journal">
+    <header class="sec-head">
+      <p class="kicker mono">Journal</p>
+      <h2 class="sec-title">Ce qui se passe<br><em>chez DOY</em></h2>
+    </header>
+    <div class="jgrid">
+      <article class="jcard jcard--a" data-cursor="Lire">
+        <figure><img src="prada.jpg" alt="Défilé Prada"></figure>
+        <p class="mono">Invitation</p>
+        <h3>Une avant première chez Prada</h3>
+      </article>
+      <article class="jcard jcard--b" data-cursor="Lire">
+        <figure><img src="couture-01.jpg" alt="DOY Fashion Show Couture Runway"></figure>
+        <p class="mono">Couture Runway</p>
+        <h3>Halloween Glamour au Village</h3>
+      </article>
+      <article class="jcard jcard--c" data-cursor="Lire">
+        <figure><img src="carpet-01.jpg" alt="Dark carpet"></figure>
+        <p class="mono">Success story</p>
+        <h3>De candidat DOY Tour à mannequin en agence</h3>
+      </article>
+      <article class="jcard jcard--d" data-cursor="Lire">
+        <figure><img src="frontrow-02.jpg" alt="Front row"></figure>
+        <p class="mono">Talk · Paris</p>
+        <h3>Les bases du mannequinat</h3>
+      </article>
+    </div>
+  </section>
+
+  <section class="hosts" aria-label="Ils nous ont accueillis">
+    <p class="kicker mono">Ils nous ont accueillis</p>
+    <div class="hosts__row">
+      <div class="hosts__track">
+        <span>Galeries Lafayette</span><i>♠</i><span><em>Planétarium de Lyon</em></span><i>♠</i><span>The Village</span><i>♠</i><span><em>École Peyrefitte</em></span><i>♠</i>
+        <span>Galeries Lafayette</span><i>♠</i><span><em>Planétarium de Lyon</em></span><i>♠</i><span>The Village</span><i>♠</i><span><em>École Peyrefitte</em></span><i>♠</i>
+      </div>
+    </div>
+  </section>
+
+  <section class="casting" id="casting">
+    <div class="casting__media">
+      <img src="carpet-02.jpg" alt="">
+      <img src="noir-01.jpg" alt="">
+      <img src="detail-02.jpg" alt="">
+    </div>
+    <div class="casting__content">
+      <p class="kicker mono">Prochain casting</p>
+      <h2 class="casting__title">Ton tour<br><em>arrive</em></h2>
+      <p class="casting__text">Aucun book, aucune expérience, aucune mensuration demandée. Laisse ton adresse, on te prévient dès que la prochaine date du DOY Tour tombe.</p>
+      <form class="casting__form">
+        <input type="email" required placeholder="Ton adresse" aria-label="Ton adresse">
+        <button type="submit">Je veux défiler</button>
+        <p class="casting__ok mono">C’est noté. À très vite sur le podium.</p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="foot__cols">
+    <div><p class="mono">Instagram</p><a href="https://www.instagram.com/doy.officiel/" target="_blank" rel="noopener">@doy.officiel</a></div>
+    <div><p class="mono">Formation</p><a href="https://www.instagram.com/doyformation/" target="_blank" rel="noopener">@doyformation</a></div>
+    <div><p class="mono">Contact</p><a href="https://www.instagram.com/doy.officiel/" target="_blank" rel="noopener">Écrire à DOY</a></div>
+    <div><p class="mono">Basé à</p><span>Lyon, France</span></div>
+  </div>
+  <div class="foot__giant" aria-hidden="true"><span>D</span><span>O</span><span>Y</span></div>
+  <div class="foot__base mono"><span>© 2026 DOY</span><span>Révéler les talents sans critères</span><a href="#top">Haut de page ↑</a></div>
+</footer>
+
+<script src="gsap.min.js"></script>
+<script src="ScrollTrigger.min.js"></script>
+<script src="lenis.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
