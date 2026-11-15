@@ -389,7 +389,42 @@
   });
   gsap.from('.foot__giant span', { yPercent: 100, duration: 1.4, stagger: .1, ease: 'expo.out', scrollTrigger: { trigger: '.foot__giant', start: 'top 98%' } });
 
-  $('.casting__form').addEventListener('submit', e => { e.preventDefault(); e.currentTarget.classList.add('is-sent'); });
+  $$('.ed, .offer').forEach(r => gsap.from(r, { y: 50, opacity: 0, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: r, start: 'top 95%' } }));
+  gsap.from('.refus li', { y: 80, opacity: 0, duration: 1.3, stagger: .12, ease: 'expo.out', scrollTrigger: { trigger: '.refus', start: 'top 85%' } });
+
+  const apply = $('.apply');
+  apply.addEventListener('submit', e => {
+    e.preventDefault();
+    const f = apply.elements;
+    const need = [f.prenom, f.nom, f.email];
+    need.forEach(i => i.classList.toggle('is-bad', !i.checkValidity() || !i.value.trim()));
+    const bad = need.find(i => i.classList.contains('is-bad'));
+    if (bad) { bad.focus(); return; }
+    const role = f.role.value;
+    const subject = `Candidature DOY : ${role} · ${f.prenom.value.trim()} ${f.nom.value.trim()}`;
+    const body = [
+      `Prénom : ${f.prenom.value.trim()}`,
+      `Nom : ${f.nom.value.trim()}`,
+      `Email : ${f.email.value.trim()}`,
+      `Téléphone : ${f.tel.value.trim()}`,
+      `Instagram : ${f.insta.value.trim()}`,
+      `Je viens pour : ${role}`,
+      '',
+      'Quelques mots sur moi :',
+      ''
+    ].join('\n');
+    location.href = `mailto:castingdoy@hotmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  });
+  $$('input', apply).forEach(i => i.addEventListener('input', () => i.classList.remove('is-bad')));
+
+  const legalBtn = $('.foot__legalbtn');
+  legalBtn.addEventListener('click', () => {
+    const legal = $('#legal');
+    legal.hidden = !legal.hidden;
+    legalBtn.setAttribute('aria-expanded', String(!legal.hidden));
+    ScrollTrigger.refresh();
+    if (!legal.hidden) lenis.scrollTo(legal, { offset: -40, duration: 1.2 });
+  });
 
   if (fine) {
     const cursor = $('.cursor');
