@@ -1,5 +1,6 @@
 (() => {
   gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.config({ ignoreMobileResize: true });
 
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => [...c.querySelectorAll(s)];
@@ -28,8 +29,7 @@
       this.index = 0;
       this.running = false;
       this.busy = false;
-      this.current = this.make(this.clips[0]);
-      this.box.appendChild(this.current);
+      this.current = null;
       this.setCaption(0);
       if (stories) {
         stories.innerHTML = this.clips.map(() => '<span><i></i></span>').join('');
@@ -41,8 +41,15 @@
       v.muted = true; v.loop = true; v.playsInline = true; v.autoplay = true;
       v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
       v.preload = 'auto';
+      v.poster = `${clip}.jpg`;
       v.src = media(clip);
       return v;
+    }
+    prime() {
+      if (this.current) return this.current;
+      this.current = this.make(this.clips[0]);
+      this.box.appendChild(this.current);
+      return this.current;
     }
     setCaption(i) {
       if (!this.caption) return;
@@ -50,7 +57,7 @@
       $('em', this.caption).textContent = this.names[i];
     }
     go(i) {
-      if (this.busy) return;
+      if (this.busy || !this.current) return;
       const n = this.clips.length;
       i = (i + n) % n;
       if (i === this.index) return;
@@ -97,6 +104,7 @@
     start() {
       if (this.running) return;
       this.running = true;
+      this.prime();
       playSafe(this.current);
       if (this.bars) { this.runBars(); return; }
       this.timer = setTimeout(() => {
@@ -109,7 +117,7 @@
       clearTimeout(this.timer);
       clearInterval(this.loop);
       if (this.barTween) this.barTween.pause();
-      this.current.pause();
+      if (this.current) this.current.pause();
     }
   }
 
@@ -146,7 +154,7 @@
       if (acc && !mobileMq.matches && !acc.classList.contains('is-open')) { v.pause(); return; }
       if (e.isIntersecting) playSafe(v); else v.pause();
     });
-  }, { rootMargin: '100px' });
+  }, { rootMargin: '400px 0px' });
   $$('main video').forEach(v => {
     if (v.closest('.hero') || v.classList.contains('modal__video')) return;
     v.muted = true;
@@ -157,7 +165,7 @@
   const bar = $('.loader__bar i');
   const num = $('.loader__num');
   const counter = { v: 0 };
-  const first = tri.map(s => s.current).concat(solo.current);
+  const first = (mobileMq.matches ? [solo] : tri).map(s => s.prime());
   const ready = Promise.race([
     Promise.all(first.map(v => new Promise(r => { if (v.readyState > 2) r(); else { v.addEventListener('canplay', r, { once: true }); v.addEventListener('error', r, { once: true }); } }))),
     new Promise(r => setTimeout(r, 4000))
@@ -293,20 +301,21 @@
   };
   $('.film').addEventListener('click', openModal);
   $('.modal__close').addEventListener('click', closeModal);
-  addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+  addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal(); });
 
   if (fine) {
     const float = $('.city-float');
     const floatImg = $('img', float);
-    let fx = innerWidth / 2, fy = innerHeight / 2, tx = fx, ty = fy;
+    let fx = innerWidth / 2, fy = innerHeight / 2, tx = fx, ty = fy, floatOn = false;
     $$('.city').forEach(c => {
-      c.addEventListener('mouseenter', () => { floatImg.src = c.dataset.img; float.classList.add('is-on'); });
-      c.addEventListener('mouseleave', () => float.classList.remove('is-on'));
+      c.addEventListener('mouseenter', () => { floatImg.src = c.dataset.img; float.classList.add('is-on'); floatOn = true; document.body.classList.add('on-city'); });
+      c.addEventListener('mouseleave', () => { float.classList.remove('is-on'); document.body.classList.remove('on-city'); setTimeout(() => { if (!float.classList.contains('is-on')) floatOn = false; }, 600); });
     });
-    addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
+    addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; }, { passive: true });
     gsap.ticker.add(() => {
+      if (!floatOn) { fx = tx; fy = ty; return; }
       fx += (tx - fx) * .12; fy += (ty - fy) * .12;
-      float.style.left = fx + 'px'; float.style.top = fy + 'px';
+      float.style.translate = `${fx}px ${fy}px`;
     });
   }
   $$('.city').forEach(c => gsap.from(c, { y: 50, opacity: 0, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: c, start: 'top 95%' } }));
@@ -327,7 +336,7 @@
   const tiles = archiveItems.map(([file, cap], k) => {
     const t = document.createElement('div');
     t.className = 'tile';
-    t.innerHTML = `<figure><img src="${file}.jpg" alt="${cap}" loading="lazy" draggable="false"></figure><span class="mono">${cap}</span>`;
+    t.innerHTML = `<figure><img src="${file}.jpg" alt="${cap}" loading="lazy" decoding="async" draggable="false"></figure><span class="mono">${cap}</span>`;
     plane.appendChild(t);
     return { el: t, col: k % cols, row: Math.floor(k / cols), s: .62 + rand() * .38, jx: rand(), jy: rand(), x: 0, y: 0, w: 0 };
   });
@@ -348,7 +357,8 @@
     });
   };
   layoutArchive();
-  addEventListener('resize', layoutArchive);
+  let lastW = innerWidth;
+  addEventListener('resize', () => { if (innerWidth === lastW) return; lastW = innerWidth; requestAnimationFrame(layoutArchive); });
   let ox = 0, oy = 0, vx = 0, vy = 0, drag = false, lx = 0, ly = 0, touchDrag = false, archiveOn = false;
   new IntersectionObserver(([e]) => { archiveOn = e.isIntersecting; }).observe(view);
   view.addEventListener('pointerdown', e => { drag = true; touchDrag = e.pointerType !== 'mouse'; lx = e.clientX; ly = e.clientY; });
@@ -361,16 +371,21 @@
     lx = e.clientX; ly = e.clientY;
   });
   const wrap = (v, m) => ((v % m) + m) % m;
-  gsap.ticker.add(() => {
+  const vw = () => view.clientWidth, vh = () => view.clientHeight;
+  gsap.ticker.add((time, dt) => {
     if (!archiveOn) return;
-    if (!drag) { vx *= .93; vy *= .93; }
-    ox += vx + (reduce ? 0 : -.35);
-    oy += vy + (reduce ? 0 : -.22);
+    const k = Math.min(dt / 16.67, 3);
+    if (!drag) { vx *= Math.pow(.93, k); vy *= Math.pow(.93, k); }
+    ox += vx + (reduce ? 0 : -.35 * k);
+    oy += vy + (reduce ? 0 : -.22 * k);
     if (drag) { vx *= .5; vy *= .5; }
+    const mw = vw() + cw, mh = vh() + ch;
     tiles.forEach(t => {
       const px = wrap(t.x + ox, W) - (cw + gap);
       const py = wrap(t.y + oy, H) - (ch + gap);
-      t.el.style.transform = `translate3d(${px}px,${py}px,0)`;
+      const show = px < mw && py < mh && px > -cw && py > -ch;
+      if (show !== t.on) { t.on = show; t.el.style.visibility = show ? '' : 'hidden'; }
+      if (show) t.el.style.transform = `translate3d(${px}px,${py}px,0)`;
     });
   });
   lenis.on('scroll', ({ velocity }) => { if (archiveOn) vy -= velocity * .06; });
@@ -389,8 +404,77 @@
   });
   gsap.from('.foot__giant span', { yPercent: 100, duration: 1.4, stagger: .1, ease: 'expo.out', scrollTrigger: { trigger: '.foot__giant', start: 'top 98%' } });
 
+  gsap.from('.doyq__lead, .doyq__grid', { y: 60, opacity: 0, duration: 1.3, stagger: .12, ease: 'expo.out', scrollTrigger: { trigger: '.doyq', start: 'top 80%' } });
+  gsap.from('.doyq__list li', { y: 20, opacity: 0, duration: .9, stagger: .06, ease: 'expo.out', scrollTrigger: { trigger: '.doyq__list', start: 'top 90%' } });
   $$('.ed, .offer').forEach(r => gsap.from(r, { y: 50, opacity: 0, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: r, start: 'top 95%' } }));
   gsap.from('.refus li', { y: 80, opacity: 0, duration: 1.3, stagger: .12, ease: 'expo.out', scrollTrigger: { trigger: '.refus', start: 'top 85%' } });
+
+  const range = (prefix, n) => Array.from({ length: n }, (_, i) => `${prefix}-${String(i + 1).padStart(2, '0')}`);
+  const galleries = {
+    alien: { title: 'Défilé V · Alien', meta: '27.04.25 · Planétarium de Lyon', items: ['look-01', 'look-04', 'look-03', 'runway-01', 'look-02', 'runway-02', 'detail-01', 'detail-02', 'piece', 'backstage-01', 'backstage-02', 'frontrow-01', 'frontrow-02', 'carpet-01', 'carpet-02', 'noir-01', 'noir-02'] },
+    halloween: { title: 'Halloween Glamour', meta: 'Couture Runway · The Village', items: ['couture-01', 'couture-02'] },
+    c260701: { title: 'Séance casting', meta: '01.07.26 · Casting DOY', items: range('cast-260701', 3) },
+    c260319: { title: 'Séance casting', meta: '19.03.26 · Casting DOY', items: range('cast-260319', 8) },
+    c241116: { title: 'Séance casting', meta: '16.11.24 · Casting DOY', items: range('cast-241116', 8) }
+  };
+  const gal = $('.gal');
+  const galGrid = $('.gal__grid');
+  const galView = $('.gal__view');
+  const galImg = $('img', galView);
+  let galItems = [], galIndex = 0, galLast = null;
+  const showPhoto = i => {
+    galIndex = (i + galItems.length) % galItems.length;
+    galImg.src = `${galItems[galIndex]}.jpg`;
+    $('.gal__count').textContent = `${String(galIndex + 1).padStart(2, '0')} / ${String(galItems.length).padStart(2, '0')}`;
+    galView.classList.add('is-open');
+    galView.setAttribute('aria-hidden', 'false');
+  };
+  const hidePhoto = () => { galView.classList.remove('is-open'); galView.setAttribute('aria-hidden', 'true'); };
+  const openGal = key => {
+    const g = galleries[key];
+    if (!g) return;
+    galLast = document.activeElement;
+    galItems = g.items;
+    $('.gal__title').textContent = g.title;
+    $('.gal__meta').textContent = `${g.meta} · ${g.items.length} photo${g.items.length > 1 ? 's' : ''}`;
+    galGrid.innerHTML = g.items.map((f, i) => `<button type="button" data-i="${i}" aria-label="Agrandir la photo ${i + 1}"><img src="${f}.jpg" alt="${g.title}, photo ${i + 1}" loading="lazy" decoding="async"></button>`).join('');
+    $$('img', galGrid).forEach(img => { const on = () => img.classList.add('is-in'); img.complete ? on() : img.addEventListener('load', on, { once: true }); });
+    hidePhoto();
+    gal.scrollTop = 0;
+    gal.classList.add('is-open');
+    gal.setAttribute('aria-hidden', 'false');
+    lenis.stop();
+    $('.gal__close').focus({ preventScroll: true });
+  };
+  const closeGal = () => {
+    if (!gal.classList.contains('is-open')) return;
+    hidePhoto();
+    gal.classList.remove('is-open');
+    gal.setAttribute('aria-hidden', 'true');
+    lenis.start();
+    if (galLast) galLast.focus({ preventScroll: true });
+  };
+  galGrid.addEventListener('click', e => { const b = e.target.closest('button'); if (b) showPhoto(+b.dataset.i); });
+  $('.gal__close').addEventListener('click', closeGal);
+  $('.gal__back').addEventListener('click', hidePhoto);
+  $('.gal__nav--prev').addEventListener('click', () => showPhoto(galIndex - 1));
+  $('.gal__nav--next').addEventListener('click', () => showPhoto(galIndex + 1));
+  galView.addEventListener('click', e => { if (e.target === galView) hidePhoto(); });
+  let gx = 0;
+  galView.addEventListener('touchstart', e => { gx = e.touches[0].clientX; }, { passive: true });
+  galView.addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - gx; if (Math.abs(dx) > 50) showPhoto(galIndex + (dx < 0 ? 1 : -1)); });
+  addEventListener('keydown', e => {
+    if (!gal.classList.contains('is-open')) return;
+    if (e.key === 'Escape') { galView.classList.contains('is-open') ? hidePhoto() : closeGal(); }
+    if (galView.classList.contains('is-open') && e.key === 'ArrowRight') showPhoto(galIndex + 1);
+    if (galView.classList.contains('is-open') && e.key === 'ArrowLeft') showPhoto(galIndex - 1);
+  });
+  $$('[data-gal]').forEach(el => {
+    el.addEventListener('click', () => openGal(el.dataset.gal));
+    if (el.tagName === 'LI') el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openGal(el.dataset.gal); } });
+  });
+  gsap.from('.tour__steps li, .tour__goal', { y: 50, opacity: 0, duration: 1.2, stagger: .08, ease: 'expo.out', scrollTrigger: { trigger: '.tour__about', start: 'top 80%' } });
+  gsap.from('.session', { y: 70, opacity: 0, duration: 1.3, stagger: .1, ease: 'expo.out', scrollTrigger: { trigger: '.sessions__list', start: 'top 85%' } });
 
   const apply = $('.apply');
   apply.addEventListener('submit', e => {
@@ -432,10 +516,11 @@
     const ringEl = $('.cursor__ring', cursor);
     const label = $('.cursor__label', cursor);
     let mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my;
-    addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.transform = `translate(${mx}px,${my}px)`; });
+    addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.transform = `translate3d(${mx}px,${my}px,0)`; }, { passive: true });
     gsap.ticker.add(() => {
       rx += (mx - rx) * .16; ry += (my - ry) * .16;
-      ringEl.style.transform = `translate(${rx}px,${ry}px)`;
+      if (Math.abs(mx - rx) < .1 && Math.abs(my - ry) < .1) return;
+      ringEl.style.transform = `translate3d(${rx}px,${ry}px,0)`;
     });
     document.addEventListener('mouseover', e => {
       const t = e.target.closest('[data-cursor]');
@@ -445,9 +530,23 @@
   }
 
   const nav = $('.nav');
+  let navHidden = false;
   lenis.on('scroll', ({ scroll, direction }) => {
     if (document.body.classList.contains('menu-open')) return;
-    nav.classList.toggle('is-hidden', direction === 1 && scroll > innerHeight * .5);
+    const h = direction === 1 && scroll > innerHeight * .5;
+    if (h !== navHidden) { navHidden = h; nav.classList.toggle('is-hidden', h); }
+  });
+
+  ScrollTrigger.create({ trigger: '.foot', start: 'top 60px', end: 'bottom top', onToggle: st => { nav.classList.toggle('is-light', st.isActive); document.body.classList.toggle('on-light', st.isActive); } });
+
+  const playing = new Set();
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      $$('video').forEach(v => { if (!v.paused) { playing.add(v); v.pause(); } });
+    } else {
+      playing.forEach(v => playSafe(v));
+      playing.clear();
+    }
   });
 
   const toggleMenu = force => {
