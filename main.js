@@ -128,8 +128,10 @@
 
   let heroVisible = true;
   let introDone = false;
+  let overlay = false;
   const syncHero = () => {
     if (!introDone) return;
+    if (overlay) { solo.stop(); tri.forEach(s => s.stop()); return; }
     const m = mobileMq.matches;
     if (heroVisible && m) { solo.start(); tri.forEach(s => s.stop()); }
     else if (heroVisible) { tri.forEach(s => s.start()); solo.stop(); }
@@ -272,7 +274,7 @@
       onUpdate: s => gsap.set('.defile__progress span', { scaleX: s.progress })
     }
   });
-  $$('.look img, .look video').forEach(m => {
+  if (!mobileMq.matches) $$('.look img, .look video').forEach(m => {
     gsap.fromTo(m, { xPercent: -7 }, { xPercent: 7, ease: 'none',
       scrollTrigger: { trigger: m.parentElement, containerAnimation: horizontal, start: 'left right', end: 'right left', scrub: true } });
   });
@@ -285,7 +287,14 @@
 
   const modal = $('.modal');
   const modalVideo = $('.modal__video');
+  const setOverlay = on => {
+    overlay = on;
+    document.body.classList.toggle('has-overlay', on);
+    $$('main video').forEach(v => { if (on && !v.paused && !v.closest('.modal')) { v.dataset.resume = '1'; v.pause(); } else if (!on && v.dataset.resume) { delete v.dataset.resume; playSafe(v); } });
+    syncHero();
+  };
   const openModal = () => {
+    setOverlay(true);
     modal.classList.add('is-open');
     modal.setAttribute('aria-hidden', 'false');
     lenis.stop();
@@ -298,6 +307,7 @@
     modal.setAttribute('aria-hidden', 'true');
     modalVideo.pause();
     lenis.start();
+    setOverlay(false);
   };
   $('.film').addEventListener('click', openModal);
   $('.modal__close').addEventListener('click', closeModal);
@@ -360,7 +370,8 @@
   let lastW = innerWidth;
   addEventListener('resize', () => { if (innerWidth === lastW) return; lastW = innerWidth; requestAnimationFrame(layoutArchive); });
   let ox = 0, oy = 0, vx = 0, vy = 0, drag = false, lx = 0, ly = 0, touchDrag = false, archiveOn = false;
-  new IntersectionObserver(([e]) => { archiveOn = e.isIntersecting; }).observe(view);
+  let archiveSeen = false;
+  new IntersectionObserver(([e]) => { archiveSeen = e.isIntersecting; archiveOn = archiveSeen && !overlay; }).observe(view);
   view.addEventListener('pointerdown', e => { drag = true; touchDrag = e.pointerType !== 'mouse'; lx = e.clientX; ly = e.clientY; });
   addEventListener('pointerup', () => { drag = false; });
   addEventListener('pointercancel', () => { drag = false; });
@@ -444,6 +455,8 @@
     gal.classList.add('is-open');
     gal.setAttribute('aria-hidden', 'false');
     lenis.stop();
+    setOverlay(true);
+    archiveOn = false;
     $('.gal__close').focus({ preventScroll: true });
   };
   const closeGal = () => {
@@ -452,6 +465,8 @@
     gal.classList.remove('is-open');
     gal.setAttribute('aria-hidden', 'true');
     lenis.start();
+    setOverlay(false);
+    archiveOn = archiveSeen;
     if (galLast) galLast.focus({ preventScroll: true });
   };
   galGrid.addEventListener('click', e => { const b = e.target.closest('button'); if (b) showPhoto(+b.dataset.i); });
@@ -565,6 +580,9 @@
     if (document.body.classList.contains('menu-open')) toggleMenu(false);
     lenis.scrollTo(target, { duration: 1.6 });
   }));
+
+  const liveIO = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('is-live', e.isIntersecting)), { rootMargin: '100px 0px' });
+  $$('.alien, .crit__end, .tour__stat b, .ed:first-child .ed__name, .strip__row, .hosts__track').forEach(el => liveIO.observe(el));
 
   addEventListener('load', () => ScrollTrigger.refresh());
 })();
