@@ -200,60 +200,6 @@
     onComplete: () => ready.then(() => intro.play())
   });
 
-  const manifest = $('.manifesto__text');
-  const walk = node => {
-    [...node.childNodes].forEach(ch => {
-      if (ch.nodeType === 3) {
-        const frag = document.createDocumentFragment();
-        ch.textContent.split(/(\s+)/).forEach(part => {
-          if (!part) return;
-          if (/^\s+$/.test(part)) frag.appendChild(document.createTextNode(part));
-          else { const s = document.createElement('span'); s.className = 'w'; s.textContent = part; frag.appendChild(s); }
-        });
-        ch.replaceWith(frag);
-      } else if (ch.nodeType === 1 && ch.tagName === 'EM') walk(ch);
-    });
-  };
-  walk(manifest);
-  const units = $$('.w, .pill', manifest);
-  gsap.set($$('.pill', manifest), { scale: 0, opacity: 0 });
-  let litCount = -1;
-  ScrollTrigger.create({
-    trigger: manifest, start: 'top 82%', end: 'bottom 50%', scrub: true,
-    onUpdate: s => {
-      const lit = Math.min(units.length, Math.floor(s.progress * units.length * 1.05));
-      if (lit === litCount) return;
-      litCount = lit;
-      units.forEach((u, i) => {
-        const on = i < lit;
-        if (u.classList.contains('pill')) {
-          if (u.dataset.on !== String(on)) {
-            u.dataset.on = String(on);
-            gsap.to(u, { scale: on ? 1 : 0, opacity: on ? 1 : 0, duration: .6, ease: 'expo.out', overwrite: true });
-            const v = $('video', u); if (v) on ? playSafe(v) : v.pause();
-          }
-        } else u.style.opacity = on ? 1 : .12;
-      });
-    }
-  });
-
-  const crit = $$('.crit li');
-  let cutCount = -1;
-  ScrollTrigger.create({
-    trigger: '.crit', start: 'top 70%', end: 'bottom 45%', scrub: true,
-    onUpdate: s => {
-      const cut = Math.round(s.progress * crit.length);
-      if (cut === cutCount) return;
-      cutCount = cut;
-      crit.forEach((li, i) => {
-        const on = i < cut;
-        li.classList.toggle('is-cut', on);
-        gsap.to($('i', li), { scaleX: on ? 1 : 0, duration: .7, ease: 'expo.out', overwrite: true });
-      });
-    }
-  });
-  gsap.from('.crit__end', { yPercent: 40, opacity: 0, duration: 1.4, ease: 'expo.out', scrollTrigger: { trigger: '.crit__end', start: 'top 90%' } });
-
   const accItems = $$('.acc__item');
   const openAcc = item => {
     if (mobileMq.matches) return;
@@ -330,86 +276,12 @@
   }
   $$('.city').forEach(c => gsap.from(c, { y: 50, opacity: 0, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: c, start: 'top 95%' } }));
 
-  const archiveItems = [
-    ['look-01', 'Look 01'], ['backstage-01', 'Coulisses'], ['couture-02', 'Couture'], ['noir-02', 'Full black'],
-    ['detail-02', 'Détail'], ['frontrow-01', 'Front row'], ['look-02', 'Look 05'], ['inclusive-01', 'Casting'],
-    ['carpet-01', 'Dark carpet'], ['piece', 'Pièce aistilca'], ['runway-02', 'Look 06'], ['joseph', 'Joseph'],
-    ['look-04', 'Look 02'], ['prada', 'Prada'], ['noir-01', 'Full black'], ['backstage-02', 'Coulisses'],
-    ['detail-01', 'Détail'], ['couture-01', 'Couture'], ['frontrow-02', 'Front row'], ['look-03', 'Look 03'],
-    ['carpet-02', 'Dark carpet'], ['inclusive-02', 'Casting'], ['runway-01', 'Look 04'], ['joseph', 'Mon identité']
-  ];
-  const view = $('.archive__view');
-  const plane = $('.archive__plane');
-  const cols = 6, rows = 4;
-  let rnd = 7;
-  const rand = () => { rnd = (rnd * 16807) % 2147483647; return (rnd - 1) / 2147483646; };
-  const tiles = archiveItems.map(([file, cap], k) => {
-    const t = document.createElement('div');
-    t.className = 'tile';
-    t.innerHTML = `<figure><img src="${file}.jpg" alt="${cap}" loading="lazy" decoding="async" draggable="false"></figure><span class="mono">${cap}</span>`;
-    plane.appendChild(t);
-    return { el: t, col: k % cols, row: Math.floor(k / cols), s: .62 + rand() * .38, jx: rand(), jy: rand(), x: 0, y: 0, w: 0 };
-  });
-  let cw, ch, gap, W, H;
-  const layoutArchive = () => {
-    const m = mobileMq.matches;
-    cw = m ? innerWidth * .46 : Math.max(220, innerWidth * .19);
-    ch = cw * 1.3;
-    gap = m ? innerWidth * .06 : innerWidth * .035;
-    W = cols * (cw + gap);
-    H = rows * (ch + gap);
-    tiles.forEach(t => {
-      t.w = cw * t.s;
-      t.el.style.width = t.w + 'px';
-      t.el.style.height = t.w * 1.25 + 'px';
-      t.x = t.col * (cw + gap) + (cw - t.w) * t.jx;
-      t.y = t.row * (ch + gap) + (ch - t.w * 1.25) * t.jy;
-    });
-  };
-  layoutArchive();
-  let lastW = innerWidth;
-  addEventListener('resize', () => { if (innerWidth === lastW) return; lastW = innerWidth; requestAnimationFrame(layoutArchive); });
-  let ox = 0, oy = 0, vx = 0, vy = 0, drag = false, lx = 0, ly = 0, touchDrag = false, archiveOn = false;
-  let archiveSeen = false;
-  new IntersectionObserver(([e]) => { archiveSeen = e.isIntersecting; archiveOn = archiveSeen && !overlay; }).observe(view);
-  view.addEventListener('pointerdown', e => { drag = true; touchDrag = e.pointerType !== 'mouse'; lx = e.clientX; ly = e.clientY; });
-  addEventListener('pointerup', () => { drag = false; });
-  addEventListener('pointercancel', () => { drag = false; });
-  addEventListener('pointermove', e => {
-    if (!drag) return;
-    vx = (e.clientX - lx) * .9;
-    if (!touchDrag) vy = (e.clientY - ly) * .9;
-    lx = e.clientX; ly = e.clientY;
-  });
-  const wrap = (v, m) => ((v % m) + m) % m;
-  const vw = () => view.clientWidth, vh = () => view.clientHeight;
-  gsap.ticker.add((time, dt) => {
-    if (!archiveOn) return;
-    const k = Math.min(dt / 16.67, 3);
-    if (!drag) { vx *= Math.pow(.93, k); vy *= Math.pow(.93, k); }
-    ox += vx + (reduce ? 0 : -.35 * k);
-    oy += vy + (reduce ? 0 : -.22 * k);
-    if (drag) { vx *= .5; vy *= .5; }
-    const mw = vw() + cw, mh = vh() + ch;
-    tiles.forEach(t => {
-      const px = wrap(t.x + ox, W) - (cw + gap);
-      const py = wrap(t.y + oy, H) - (ch + gap);
-      const show = px < mw && py < mh && px > -cw && py > -ch;
-      if (show !== t.on) { t.on = show; t.el.style.visibility = show ? '' : 'hidden'; }
-      if (show) t.el.style.transform = `translate3d(${px}px,${py}px,0)`;
-    });
-  });
-  lenis.on('scroll', ({ velocity }) => { if (archiveOn) vy -= velocity * .06; });
 
   $$('.sec-title, .founder__quote, .casting__title, .film__title').forEach(t => {
     gsap.from(t, { yPercent: 22, opacity: 0, duration: 1.3, ease: 'expo.out', scrollTrigger: { trigger: t, start: 'top 88%' } });
   });
   gsap.fromTo('.founder__img', { clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0% 0 0 0)', duration: 1.6, ease: 'expo.inOut', scrollTrigger: { trigger: '.founder', start: 'top 72%' } });
   gsap.to('.founder__img img', { yPercent: -12, ease: 'none', scrollTrigger: { trigger: '.founder', start: 'top bottom', end: 'bottom top', scrub: true } });
-  $$('.jcard').forEach((c, i) => {
-    gsap.from(c, { y: 90, opacity: 0, duration: 1.4, ease: 'expo.out', scrollTrigger: { trigger: c, start: 'top 94%' } });
-    gsap.to($('img', c), { yPercent: i % 2 ? -6 : 6, scale: 1.1, ease: 'none', scrollTrigger: { trigger: c, start: 'top bottom', end: 'bottom top', scrub: true } });
-  });
   $$('.casting__media img').forEach((img, i) => {
     gsap.fromTo(img, { y: 60 * (i + 1) }, { y: -30 * (i + 1), ease: 'none', scrollTrigger: { trigger: '.casting', start: 'top bottom', end: 'bottom top', scrub: true } });
   });
@@ -418,7 +290,6 @@
   gsap.from('.doyq__lead, .doyq__grid', { y: 60, opacity: 0, duration: 1.3, stagger: .12, ease: 'expo.out', scrollTrigger: { trigger: '.doyq', start: 'top 80%' } });
   gsap.from('.doyq__list li', { y: 20, opacity: 0, duration: .9, stagger: .06, ease: 'expo.out', scrollTrigger: { trigger: '.doyq__list', start: 'top 90%' } });
   $$('.ed, .offer').forEach(r => gsap.from(r, { y: 50, opacity: 0, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: r, start: 'top 95%' } }));
-  gsap.from('.refus li', { y: 80, opacity: 0, duration: 1.3, stagger: .12, ease: 'expo.out', scrollTrigger: { trigger: '.refus', start: 'top 85%' } });
 
   const range = (prefix, n) => Array.from({ length: n }, (_, i) => `${prefix}-${String(i + 1).padStart(2, '0')}`);
   const galleries = {
@@ -456,7 +327,6 @@
     gal.setAttribute('aria-hidden', 'false');
     lenis.stop();
     setOverlay(true);
-    archiveOn = false;
     $('.gal__close').focus({ preventScroll: true });
   };
   const closeGal = () => {
@@ -466,7 +336,6 @@
     gal.setAttribute('aria-hidden', 'true');
     lenis.start();
     setOverlay(false);
-    archiveOn = archiveSeen;
     if (galLast) galLast.focus({ preventScroll: true });
   };
   galGrid.addEventListener('click', e => { const b = e.target.closest('button'); if (b) showPhoto(+b.dataset.i); });
@@ -488,7 +357,7 @@
     el.addEventListener('click', () => openGal(el.dataset.gal));
     if (el.tagName === 'LI') el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openGal(el.dataset.gal); } });
   });
-  gsap.from('.tour__steps li, .tour__goal', { y: 50, opacity: 0, duration: 1.2, stagger: .08, ease: 'expo.out', scrollTrigger: { trigger: '.tour__about', start: 'top 80%' } });
+  gsap.from('.tour__goal', { y: 50, opacity: 0, duration: 1.2, stagger: .08, ease: 'expo.out', scrollTrigger: { trigger: '.tour__about', start: 'top 80%' } });
   gsap.from('.session', { y: 70, opacity: 0, duration: 1.3, stagger: .1, ease: 'expo.out', scrollTrigger: { trigger: '.sessions__list', start: 'top 85%' } });
 
   const apply = $('.apply');
@@ -582,7 +451,7 @@
   }));
 
   const liveIO = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('is-live', e.isIntersecting)), { rootMargin: '100px 0px' });
-  $$('.alien, .crit__end, .tour__stat b, .ed:first-child .ed__name, .strip__row, .hosts__track').forEach(el => liveIO.observe(el));
+  $$('.alien, .tour__stat b, .ed:first-child .ed__name').forEach(el => liveIO.observe(el));
 
   addEventListener('load', () => ScrollTrigger.refresh());
 })();
