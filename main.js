@@ -284,7 +284,7 @@
   $$('.casting__media img').forEach((img, i) => {
     gsap.fromTo(img, { y: 60 * (i + 1) }, { y: -30 * (i + 1), ease: 'none', scrollTrigger: { trigger: '.casting', start: 'top bottom', end: 'bottom top', scrub: true } });
   });
-  gsap.from('.foot__giant span', { yPercent: 100, duration: 1.4, stagger: .1, ease: 'expo.out', scrollTrigger: { trigger: '.foot__giant', start: 'top 98%' } });
+  gsap.from('.foot__logo', { y: 80, opacity: 0, duration: 1.4, stagger: .1, ease: 'expo.out', scrollTrigger: { trigger: '.foot__giant', start: 'top 98%' } });
 
   gsap.from('.doyq__lead, .doyq__grid', { y: 60, opacity: 0, duration: 1.3, stagger: .12, ease: 'expo.out', scrollTrigger: { trigger: '.doyq', start: 'top 80%' } });
   gsap.from('.doyq__list li', { y: 20, opacity: 0, duration: .9, stagger: .06, ease: 'expo.out', scrollTrigger: { trigger: '.doyq__list', start: 'top 90%' } });

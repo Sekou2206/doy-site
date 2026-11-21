@@ -591,3 +591,18 @@ em,.loader__words span:nth-child(2),.menu nav a:nth-child(even) span,.defile__cr
 .sel__ig:hover{border-color:var(--bone)}
 .sel__ag{margin-top:10px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fog);line-height:1.7}
 @media (max-width:760px){.sel__lead{text-align:left}.sel__track{grid-auto-columns:78vw}}
+
+.nav__logo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);height:auto;margin-top:calc((max(18px,env(safe-area-inset-top)) - 18px)/2)}
+.nav__logo .logo{height:34px;width:auto}
+.loader__mark .logo{height:46px;width:auto}
+.foot__giant{display:flex;justify-content:center;padding:2vw 0 4vw;overflow:visible!important}
+.foot__logo{width:clamp(150px,16vw,240px);height:auto;color:var(--ink);overflow:visible}
+.nav__burger{margin-left:auto}
+.tour__datesk--past{margin-top:clamp(60px,8vw,110px)}
+.cities--past .city b{font-size:clamp(34px,6vw,104px);color:var(--fog)}
+.cities--past .city__date{font-size:clamp(20px,2.6vw,44px);color:var(--fog)}
+.cities--past .city:hover b,.cities--past .city:hover .city__date{color:var(--ink)}
+@media (max-width:760px){.cities--past .city b{font-size:7vw!important}}
+.sel__hint{display:inline-block;margin-top:10px;color:var(--bone)}
+.foot__giant{display:block!important;font-size:0!important;margin:4vw 0 3vw!important;padding:0!important}
+.foot__logo{display:block;margin:0 auto;width:clamp(120px,11vw,180px)!important;font-weight:400}
