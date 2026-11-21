@@ -606,3 +606,10 @@ em,.loader__words span:nth-child(2),.menu nav a:nth-child(even) span,.defile__cr
 .sel__hint{display:inline-block;margin-top:10px;color:var(--bone)}
 .foot__giant{display:block!important;font-size:0!important;margin:4vw 0 3vw!important;padding:0!important}
 .foot__logo{display:block;margin:0 auto;width:clamp(120px,11vw,180px)!important;font-weight:400}
+
+.manifesto__text,.ht--1,.crit li:nth-child(3n),.defile__lead,.defile__quote,.tour__lead,.tour__goaltext,.tour__steps p,.catalog__name,.doyq__text,.jcard h3,.hosts__track span,.casting__text,.offer__body p,.story__lead,.story__end,.story__name i,.foot__cols a,.foot__cols span{font-family:var(--sans)!important;font-variation-settings:"wdth" 125!important;font-weight:800!important;font-style:normal!important;text-transform:uppercase!important;letter-spacing:-.02em!important;line-height:1.15!important}
+.foot__cols a[href^="mailto:"]{text-transform:none!important}
+.foot__giant{margin:3vw 0 2vw!important}
+.foot__logo{width:clamp(56px,4.6vw,80px)!important}
+.offer{grid-template-columns:60px minmax(0,1fr) 70px auto}
+@media (max-width:760px){.offer{grid-template-columns:auto 1fr}}
