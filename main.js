@@ -146,8 +146,7 @@
   });
 
   gsap.to('.hero__tri, .hero__solo', { yPercent: 18, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
-  gsap.to('.ht--1 > span', { xPercent: -14, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
-  gsap.to('.ht--2 > span', { xPercent: 12, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+  gsap.to('.hero__center', { yPercent: -18, opacity: 0, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: '60% top', scrub: true } });
 
   const videoObserver = new IntersectionObserver(entries => {
     entries.forEach(e => {
@@ -177,7 +176,7 @@
     .to('.loader__words', { yPercent: -10, opacity: 0, duration: .7, ease: 'power3.in' })
     .to('.loader', { clipPath: 'inset(0 0 100% 0)', duration: 1.2, ease: 'expo.inOut' }, '-=.2')
     .from('.hero__tri .screen, .hero__solo', { clipPath: 'inset(100% 0 0 0)', duration: 1.6, stagger: .12, ease: 'expo.inOut' }, '-=1')
-    .from('.ht > span', { yPercent: 110, duration: 1.4, stagger: .12, ease: 'expo.out' }, '-=.9')
+    .from('.hero__center', { opacity: 0, scale: .92, duration: 1.6, ease: 'expo.out' }, '-=.9')
     .from('.hero__meta, .hero__down, .screen__cap, .stories, .hero__solocap', { opacity: 0, y: 16, duration: 1, stagger: .05, ease: 'power3.out' }, '-=1')
     .from('.nav', { opacity: 0, duration: 1, ease: 'power3.out' }, '<')
     .add(() => {
@@ -294,10 +293,11 @@
   const range = (prefix, n) => Array.from({ length: n }, (_, i) => `${prefix}-${String(i + 1).padStart(2, '0')}`);
   const galleries = {
     alien: { title: 'Défilé V · Alien', meta: '27.04.25 · Planétarium de Lyon', items: ['look-01', 'look-04', 'look-03', 'runway-01', 'look-02', 'runway-02', 'detail-01', 'detail-02', 'piece', 'backstage-01', 'backstage-02', 'frontrow-01', 'frontrow-02', 'carpet-01', 'carpet-02', 'noir-01', 'noir-02'] },
-    halloween: { title: 'Halloween Glamour', meta: 'Couture Runway · The Village', items: ['couture-01', 'couture-02'] },
-    c260701: { title: 'Séance casting', meta: '01.07.26 · Casting DOY', items: range('cast-260701', 3) },
-    c260319: { title: 'Séance casting', meta: '19.03.26 · Casting DOY', items: range('cast-260319', 8) },
-    c241116: { title: 'Séance casting', meta: '16.11.24 · Casting DOY', items: range('cast-241116', 8) }
+    moonlight: { title: 'Moonlight Shadow', meta: '10.2021 · Cirque Imagine, Lyon', items: range('ms', 23) },
+    cgr: { title: 'Fashion Show IV', meta: '04.2023 · CGR Cinémas, Lyon Brignais', items: range('cg', 40) },
+    boscolo: { title: 'Couture I', meta: '09.06.24 · Boscolo Hotel, Lyon', items: range('bc', 17) },
+    hoteldieu: { title: 'Défilé · Grand Hôtel Dieu', meta: 'Lyon · Défilé en plein air', items: range('hd', 8) },
+    halloween: { title: 'Halloween Glamour', meta: 'Couture Runway · The Village', items: ['couture-01', 'couture-02', ...range('vg', 16)] }
   };
   const gal = $('.gal');
   const galGrid = $('.gal__grid');

@@ -16,16 +16,16 @@
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
-    <symbol id="doy" viewBox="0 0 64 100">
-      <g fill="none" stroke="currentColor" stroke-width="2.4">
-        <path d="M6 4h20l12 12v22L26 50H6z"/>
-        <path d="M12 10h12l8 8v18l-8 8H12z"/>
-        <path d="M24 30h34v34H24z"/>
-        <path d="M30 36h22v22H30z"/>
-        <path d="M34 64v16l-14 0v16h12"/>
-        <path d="M46 64v16h12v16H40"/>
-      </g>
+    <symbol id="doy" viewBox="342 196 572 728">
+      <path d="M568 706 C550 722 514 731 474 719 C390 693 366 556 430 486 C514 398 610 308 628 210 C646 308 742 398 826 486 C890 556 866 693 782 719 C742 731 706 722 688 706" fill="none" stroke="currentColor" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M628 760 C634 840 668 892 720 914 L536 914 C588 892 622 840 628 760 Z" fill="currentColor"/>
     </symbol>
+    <linearGradient id="doy-metal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset=".45" stop-color="#cfcdc9"/>
+      <stop offset=".7" stop-color="#f4f3f0"/>
+      <stop offset="1" stop-color="#a9a7a3"/>
+    </linearGradient>
   </defs>
 </svg>
 
@@ -46,9 +46,7 @@
 <header class="nav">
   <a href="#top" class="nav__logo" aria-label="DOY accueil"><svg class="logo" viewBox="0 0 64 100"><use href="#doy"/></svg><span>DOY</span></a>
   <nav class="nav__links" aria-label="Navigation principale">
-    <a href="#univers">Univers</a>
     <a href="#defile">Défilé</a>
-    <a href="#editions">Éditions</a>
     <a href="#tour">Tour</a>
     <a href="#formation">Formation</a>
   </nav>
@@ -58,36 +56,33 @@
 
 <div class="menu" aria-hidden="true">
   <nav>
-    <a href="#univers"><small>01</small><span>Univers</span></a>
-    <a href="#defile"><small>02</small><span>Défilé</span></a>
-    <a href="#editions"><small>03</small><span>Éditions</span></a>
-    <a href="#tour"><small>04</small><span>Tour</span></a>
-    <a href="#formation"><small>05</small><span>Formation</span></a>
-    <a href="#casting"><small>06</small><span>Casting</span></a>
+    <a href="#defile"><small>01</small><span>Défilé</span></a>
+    <a href="#tour"><small>02</small><span>Tour</span></a>
+    <a href="#formation"><small>03</small><span>Formation</span></a>
   </nav>
-  <div class="menu__foot mono"><span>@doy.officiel</span><span>Lyon · Paris · Marseille · Genève</span></div>
+  <div class="menu__foot mono"><span>@doy.officiel</span><span>Révéler les talents sans critères</span></div>
 </div>
 
 <main id="top">
 
   <section class="hero">
     <div class="hero__tri">
-      <div class="screen" data-clips="v-tunnel|v-robot" data-names="Le tunnel rouge|Pièce robotique" data-cursor="Voir">
+      <div class="screen" data-clips="h-1|h-4" data-names="Coulisses|Alien" data-cursor="Voir">
         <div class="screen__media"></div>
         <span class="screen__cap mono"><b>01</b><em></em></span>
       </div>
-      <div class="screen" data-clips="v-couture|v-darkcarpet" data-names="Couture|Dark carpet" data-cursor="Voir">
+      <div class="screen" data-clips="h-2|h-5" data-names="Couture|Le tunnel rouge" data-cursor="Voir">
         <div class="screen__media"></div>
         <span class="screen__cap mono"><b>02</b><em></em></span>
       </div>
-      <div class="screen" data-clips="v-performance|v-backstage" data-names="Performance|Coulisses" data-cursor="Voir">
+      <div class="screen" data-clips="h-3|h-1" data-names="Défilé|Coulisses" data-cursor="Voir">
         <div class="screen__media"></div>
         <span class="screen__cap mono"><b>03</b><em></em></span>
       </div>
     </div>
 
     <div class="hero__solo">
-      <div class="screen screen--solo" data-clips="v-tunnel|v-couture|v-robot|v-darkcarpet|v-performance" data-names="Le tunnel rouge|Couture|Pièce robotique|Dark carpet|Performance">
+      <div class="screen screen--solo" data-clips="h-1|h-2|h-3|h-4|h-5" data-names="Coulisses|Couture|Défilé|Alien|Le tunnel rouge">
         <div class="screen__media"></div>
       </div>
       <div class="stories"></div>
@@ -96,16 +91,19 @@
       <span class="hero__solocap mono"><b>01</b><em></em></span>
     </div>
 
-    <h1 class="hero__title" aria-label="DOY, sans critères">
-      <span class="ht ht--1 ht--doy"><span>DOY</span></span>
-      <span class="ht ht--2"><span>Sans <em>critères</em></span></span>
+    <h1 class="hero__title"><span class="sr">DOY, la plateforme mode inclusive</span>
+      <span class="hero__center">
+        <svg class="hero__logo" viewBox="342 186 572 904" role="img" aria-label="DOY">
+        <path d="M568 706 C550 722 514 731 474 719 C390 693 366 556 430 486 C514 398 610 308 628 210 C646 308 742 398 826 486 C890 556 866 693 782 719 C742 731 706 722 688 706" fill="none" stroke="url(#doy-metal)" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M628 760 C634 840 668 892 720 914 L536 914 C588 892 622 840 628 760 Z" fill="url(#doy-metal)"/>
+        <g class="hero__logo-word" text-anchor="middle" fill="url(#doy-metal)"><text x="502" y="1058">D</text><text x="626" y="1058">O</text><text x="752" y="1058">Y</text></g>
+      </svg>
+        <span class="hero__tag mono">Sans critères</span>
+      </span>
     </h1>
 
     <div class="hero__meta hero__meta--l">
       <span class="mono">La plateforme mode inclusive</span>
-    </div>
-    <div class="hero__meta hero__meta--r">
-      <span class="mono">Lyon · Paris · Marseille · Genève</span>
     </div>
     <a href="#fondateur" class="hero__down mono" aria-label="Défiler"><i></i>Défiler</a>
   </section>
@@ -125,7 +123,10 @@
     <p class="kicker mono">DOY ?</p>
     <p class="doyq__lead">DOY est une plateforme de mode inclusive qui met en lumière des profils issus des minorités.</p>
     <div class="doyq__grid">
-      <p class="doyq__label mono">Notre mission</p>
+      <div class="doyq__side">
+        <p class="doyq__label mono">Notre mission</p>
+        <figure class="doyq__img"><img src="perles.jpg" alt="Portrait DOY, une femme et ses colliers de perles" loading="lazy" decoding="async"></figure>
+      </div>
       <div>
         <p class="doyq__text">Offrir une scène à celles et ceux qui ne correspondent pas aux standards traditionnels du mannequinat.</p>
         <ul class="doyq__list mono">
@@ -147,24 +148,24 @@
     </header>
     <div class="acc">
       <article class="acc__item is-open" data-cursor="Voir">
-        <video src="v-couture.mp4" poster="v-couture.jpg" muted loop playsinline preload="none"></video>
+        <video src="v-robe.mp4" poster="v-robe.jpg" muted loop playsinline preload="none"></video>
         <div class="acc__veil"></div>
         <span class="acc__num mono">01</span>
-        <h3 class="acc__title">DOY<br><em>Fashion Show</em></h3>
+        <h3 class="acc__title">DOY <br><em>Fashion Show</em></h3>
         <p class="acc__text">Des défilés de mode inclusifs et immersifs. Un thème, une scène inattendue, des créateurs émergents et des mannequins que personne n’avait encore regardés.</p>
       </article>
       <article class="acc__item" data-cursor="Voir">
         <video src="v-casting.mp4" poster="v-casting.jpg" muted loop playsinline preload="none"></video>
         <div class="acc__veil"></div>
         <span class="acc__num mono">02</span>
-        <h3 class="acc__title">Casting<br><em>DOY Tour</em></h3>
+        <h3 class="acc__title">Casting <br><em>DOY Tour</em></h3>
         <p class="acc__text">Détecter et accompagner de nouveaux talents. Une tournée internationale de castings ouverte aux mannequins et modèles amateurs, sans aucun critère physique.</p>
       </article>
       <article class="acc__item" data-cursor="Voir">
-        <video src="v-backstage.mp4" poster="v-backstage.jpg" muted loop playsinline preload="none"></video>
+        <video src="v-chaise.mp4" poster="v-chaise.jpg" muted loop playsinline preload="none"></video>
         <div class="acc__veil"></div>
         <span class="acc__num mono">03</span>
-        <h3 class="acc__title">DOY<br><em>Formation</em></h3>
+        <h3 class="acc__title">DOY <br><em>Formation</em></h3>
         <p class="acc__text">Transmettre les bases du mannequinat et développer le potentiel de chacun. Coaching privé, art du posing, catwalk.</p>
       </article>
     </div>
@@ -224,10 +225,11 @@
     </header>
     <ol class="eds">
       <li class="ed ed--gal" data-gal="alien" data-cursor="Photos" tabindex="0" role="button"><span class="ed__date mono">27.04.25</span><b class="ed__name">Alien</b><span class="ed__info"><em>Défilé V</em><span class="mono">Planétarium de Lyon</span><span class="ed__photos mono">Voir les 17 photos ↗</span></span></li>
-      <li class="ed"><span class="ed__date mono">09.06.24</span><b class="ed__name">Couture I</b><span class="ed__info"><em>Printemps été 2024</em><span class="mono">Boscolo Hotel, Lyon</span></span></li>
-      <li class="ed"><span class="ed__date mono">04.2023</span><b class="ed__name">Fashion Show IV</b><span class="ed__info"><em>Défilé, performance, showcase</em><span class="mono">CGR Cinémas, Lyon Brignais</span></span></li>
-      <li class="ed ed--gal" data-gal="halloween" data-cursor="Photos" tabindex="0" role="button"><span class="ed__date mono">Hors série</span><b class="ed__name">Halloween Glamour</b><span class="ed__info"><em>Couture Runway</em><span class="mono">The Village</span><span class="ed__photos mono">Voir les photos ↗</span></span></li>
-      <li class="ed"><span class="ed__date mono">10.2021</span><b class="ed__name">Moonlight Shadow</b><span class="ed__info"><em>Fashion Show III</em><span class="mono">Cirque Imagine, Lyon</span></span></li>
+      <li class="ed ed--gal" data-gal="boscolo" data-cursor="Photos" tabindex="0" role="button"><span class="ed__date mono">09.06.24</span><b class="ed__name">Couture I</b><span class="ed__info"><em>Printemps été 2024</em><span class="mono">Boscolo Hotel, Lyon</span><span class="ed__photos mono">Voir les 17 photos ↗</span></span></li>
+      <li class="ed ed--gal" data-gal="cgr" data-cursor="Photos" tabindex="0" role="button"><span class="ed__date mono">04.2023</span><b class="ed__name">Fashion Show IV</b><span class="ed__info"><em>Défilé, performance, showcase</em><span class="mono">CGR Cinémas, Lyon Brignais</span><span class="ed__photos mono">Voir les 40 photos ↗</span></span></li>
+      <li class="ed ed--gal" data-gal="hoteldieu" data-cursor="Photos" tabindex="0" role="button"><span class="ed__date mono">Lyon</span><b class="ed__name">Hôtel Dieu</b><span class="ed__info"><em>Défilé en plein air</em><span class="mono">Grand Hôtel Dieu, Lyon</span><span class="ed__photos mono">Voir les 8 photos ↗</span></span></li>
+      <li class="ed ed--gal" data-gal="halloween" data-cursor="Photos" tabindex="0" role="button"><span class="ed__date mono">Hors série</span><b class="ed__name">Halloween Glamour</b><span class="ed__info"><em>Couture Runway</em><span class="mono">The Village</span><span class="ed__photos mono">Voir les 18 photos ↗</span></span></li>
+      <li class="ed ed--gal" data-gal="moonlight" data-cursor="Photos" tabindex="0" role="button"><span class="ed__date mono">10.2021</span><b class="ed__name">Moonlight Shadow</b><span class="ed__info"><em>Fashion Show III</em><span class="mono">Cirque Imagine, Lyon</span><span class="ed__photos mono">Voir les 23 photos ↗</span></span></li>
     </ol>
     <a class="eds__more mono" href="https://www.youtube.com/@dependofyourself" target="_blank" rel="noopener">Revoir les défilés en entier sur YouTube ↗</a>
   </section>
@@ -273,31 +275,38 @@
       <p class="tour__lead">Le Casting DOY Tour est une tournée de castings ouverte à toutes et à tous, mannequins et modèles amateurs. Aucun book, aucune expérience, aucun critère physique : tu viens comme tu es.</p>
     </header>
     <div class="tour__about">
+      <figure class="tour__poster"><img src="affiche-tour.jpg" alt="Affiche Casting DOY Tour 2027 2028" loading="lazy" decoding="async" width="900" height="1594"></figure>
       <div class="tour__goal">
         <p class="kicker mono">L’objectif</p>
         <p class="tour__goaltext">Détecter et accompagner de nouveaux talents, puis leur offrir ce que la mode leur refusait : <em>monter sur scène et vivre l’expérience d’une Fashion Week</em>, sans être connu ni avoir de statut particulier.</p>
         <p class="tour__stat"><b>300+</b><span class="mono">personnes au seul casting de Marseille</span></p>
       </div>
     </div>
-    <p class="kicker mono tour__datesk">La tournée 2025</p>
+    <p class="kicker mono tour__datesk">La tournée 2027</p>
     <ol class="cities">
-      <li class="city" data-img="noir-02.jpg"><span class="mono">01</span><b>Lyon</b><img decoding="async" class="city__thumb" src="noir-02.jpg" alt=""><span class="city__date">12.01.25</span></li>
-      <li class="city" data-img="carpet-02.jpg"><span class="mono">02</span><b>Paris</b><img decoding="async" class="city__thumb" src="carpet-02.jpg" alt=""><span class="city__date">18.01.25</span></li>
-      <li class="city" data-img="frontrow-01.jpg"><span class="mono">03</span><b>Marseille</b><img decoding="async" class="city__thumb" src="frontrow-01.jpg" alt=""><span class="city__date">25.01.25</span></li>
-      <li class="city" data-img="inclusive-02.jpg"><span class="mono">04</span><b>Genève</b><img decoding="async" class="city__thumb" src="inclusive-02.jpg" alt=""><span class="city__date">2025</span></li>
+      <li class="city" data-img="tour-01.jpg"><span class="mono">01</span><b>Paris</b><img decoding="async" class="city__thumb" src="tour-01.jpg" alt="" loading="lazy"><span class="city__date">2027</span></li>
+      <li class="city" data-img="tour-02.jpg"><span class="mono">02</span><b>Marseille</b><img decoding="async" class="city__thumb" src="tour-02.jpg" alt="" loading="lazy"><span class="city__date">2027</span></li>
+      <li class="city" data-img="tour-03.jpg"><span class="mono">03</span><b>Nice</b><img decoding="async" class="city__thumb" src="tour-03.jpg" alt="" loading="lazy"><span class="city__date">2027</span></li>
+      <li class="city" data-img="tour-04.jpg"><span class="mono">04</span><b>Lausanne</b><img decoding="async" class="city__thumb" src="tour-04.jpg" alt="" loading="lazy"><span class="city__date">2027</span></li>
+      <li class="city" data-img="tour-05.jpg"><span class="mono">05</span><b>Genève</b><img decoding="async" class="city__thumb" src="tour-05.jpg" alt="" loading="lazy"><span class="city__date">2027</span></li>
+      <li class="city" data-img="tour-06.jpg"><span class="mono">06</span><b>Toulouse</b><img decoding="async" class="city__thumb" src="tour-06.jpg" alt="" loading="lazy"><span class="city__date">2027</span></li>
+      <li class="city" data-img="tour-07.jpg"><span class="mono">07</span><b>Rennes</b><img decoding="async" class="city__thumb" src="tour-07.jpg" alt="" loading="lazy"><span class="city__date">2027</span></li>
+      <li class="city" data-img="tour-01.jpg"><span class="mono">08</span><b>Bordeaux</b><img decoding="async" class="city__thumb" src="tour-01.jpg" alt="" loading="lazy"><span class="city__date">2027</span></li>
+      <li class="city" data-img="tour-02.jpg"><span class="mono">09</span><b>Strasbourg</b><img decoding="async" class="city__thumb" src="tour-02.jpg" alt="" loading="lazy"><span class="city__date">2027</span></li>
+      <li class="city" data-img="tour-03.jpg"><span class="mono">10</span><b>Bruxelles</b><img decoding="async" class="city__thumb" src="tour-03.jpg" alt="" loading="lazy"><span class="city__date">2027</span></li>
+      <li class="city" data-img="tour-04.jpg"><span class="mono">11</span><b>Madrid</b><img decoding="async" class="city__thumb" src="tour-04.jpg" alt="" loading="lazy"><span class="city__date">2027</span></li>
+      <li class="city" data-img="tour-05.jpg"><span class="mono">12</span><b>Londres</b><img decoding="async" class="city__thumb" src="tour-05.jpg" alt="" loading="lazy"><span class="city__date">2027</span></li>
     </ol>
     <div class="city-float" aria-hidden="true"><img decoding="async" alt=""></div>
     <div class="sessions">
       <div class="sessions__head">
-        <p class="kicker mono">Les séances casting</p>
-        <p class="sessions__hint mono">Clique sur une date pour ouvrir les photos</p>
+        <p class="kicker mono">Les prochains shootings</p>
       </div>
       <div class="sessions__list">
-        <button class="session" data-gal="c260701" type="button"><span class="session__date">01.07.26</span><span class="session__info"><em>Séance casting</em><span class="mono">3 photos ↗</span></span><img src="cast-260701-01.jpg" alt="" loading="lazy" decoding="async"></button>
-        <button class="session" data-gal="c260319" type="button"><span class="session__date">19.03.26</span><span class="session__info"><em>Séance casting</em><span class="mono">8 photos ↗</span></span><img src="cast-260319-02.jpg" alt="" loading="lazy" decoding="async"></button>
-        <button class="session" data-gal="c241116" type="button"><span class="session__date">16.11.24</span><span class="session__info"><em>Séance casting</em><span class="mono">8 photos ↗</span></span><img src="cast-241116-02.jpg" alt="" loading="lazy" decoding="async"></button>
+        <a class="session" href="#formation"><img src="shoot-01.jpg" alt="" loading="lazy" decoding="async"><span class="session__more mono">En savoir plus <i>→</i></span></a>
+        <a class="session" href="#formation"><img src="shoot-02.jpg" alt="" loading="lazy" decoding="async"><span class="session__more mono">En savoir plus <i>→</i></span></a>
+        <a class="session" href="#formation"><img src="shoot-03.jpg" alt="" loading="lazy" decoding="async"><span class="session__more mono">En savoir plus <i>→</i></span></a>
       </div>
-      <a class="tour__cta" href="#casting"><span>Être prévenu de la prochaine date</span><i>→</i></a>
     </div>
   </section>
 
@@ -333,13 +342,39 @@
       </li>
     </ul>
     <p class="formation__proof"><em>Des élèves accompagnés jusqu’à leur signature en agence et leurs premiers contrats mode.</em></p>
+    <div class="sel">
+      <div class="sel__head">
+        <h3 class="sel__title">DOY <span>Select</span></h3>
+        <p class="sel__lead mono">Ils sont passés par DOY.<br>Ils posent aujourd’hui pour les agences.</p>
+      </div>
+      <ul class="sel__track">
+        <li class="sel__card">
+          <a class="sel__img" href="https://www.instagram.com/i_m_amra/" target="_blank" rel="noopener"><img src="sel-amra.jpg" alt="Amra" loading="lazy" decoding="async"></a>
+          <b class="sel__name">Amra</b>
+          <a class="sel__ig mono" href="https://www.instagram.com/i_m_amra/" target="_blank" rel="noopener">@i_m_amra ↗</a>
+          <p class="sel__ag mono">Square Models · Bananas Models · Rudeboy Management</p>
+        </li>
+        <li class="sel__card">
+          <a class="sel__img" href="https://www.instagram.com/hamza.meskini_/" target="_blank" rel="noopener"><img src="sel-hamza.jpg" alt="Hamza Meskini" loading="lazy" decoding="async"></a>
+          <b class="sel__name">Hamza Meskini</b>
+          <a class="sel__ig mono" href="https://www.instagram.com/hamza.meskini_/" target="_blank" rel="noopener">@hamza.meskini_ ↗</a>
+          <p class="sel__ag mono">VIP Models Paris · Rudeboy Management</p>
+        </li>
+        <li class="sel__card">
+          <a class="sel__img" href="https://www.instagram.com/jung.sungku/" target="_blank" rel="noopener"><img src="sel-sungku.jpg" alt="Sungku" loading="lazy" decoding="async"></a>
+          <b class="sel__name">Sungku</b>
+          <a class="sel__ig mono" href="https://www.instagram.com/jung.sungku/" target="_blank" rel="noopener">@jung.sungku ↗</a>
+          <p class="sel__ag mono">M Directors · Rock Men Paris · The Lab Models · Izaio · Two Management</p>
+        </li>
+      </ul>
+    </div>
   </section>
 
   <section class="casting" id="casting">
     <div class="casting__media">
-      <img decoding="async" src="carpet-02.jpg" alt="">
-      <img decoding="async" src="noir-01.jpg" alt="">
-      <img decoding="async" src="detail-02.jpg" alt="">
+      <img decoding="async" src="join-01.jpg" alt="">
+      <img decoding="async" src="join-02.jpg" alt="">
+      <img decoding="async" src="join-03.jpg" alt="">
     </div>
     <div class="casting__content">
       <p class="kicker mono">Rejoindre DOY</p>
