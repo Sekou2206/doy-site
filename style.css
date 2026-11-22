@@ -613,3 +613,5 @@ em,.loader__words span:nth-child(2),.menu nav a:nth-child(even) span,.defile__cr
 .foot__logo{width:clamp(56px,4.6vw,80px)!important}
 .offer{grid-template-columns:60px minmax(0,1fr) 70px auto}
 @media (max-width:760px){.offer{grid-template-columns:auto 1fr}}
+.session{justify-content:space-between!important}
+.session__date{text-shadow:0 4px 30px rgba(0,0,0,.45)}
